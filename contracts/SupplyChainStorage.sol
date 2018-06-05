@@ -4,6 +4,12 @@ import "./SupplyChainStorageOwnable.sol";
 
 contract SupplyChainStorage is SupplyChainStorageOwnable {
     
+    address public lastAccess;
+    constructor() public {
+        authorizedCaller[msg.sender] = 1;
+        emit AuthorizedCaller(msg.sender);
+    }
+    
     /* Events */
     event AuthorizedCaller(address caller);
     event DeAuthorizedCaller(address caller);
@@ -11,10 +17,10 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
     /* Modifiers */
     
     modifier onlyAuthCaller(){
-        require(authorizedCaller[msg.sender] == true);
+        lastAccess = msg.sender;
+        require(authorizedCaller[msg.sender] == 1);
         _;
     }
-    
     
     /* User Related */
     struct user {
@@ -28,7 +34,23 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
     mapping(address => string) userRole;
     
     /* Caller Mapping */
-    mapping(address => bool) authorizedCaller;
+    mapping(address => uint8) authorizedCaller;
+    
+    /* authorize caller */
+    function authorizeCaller(address _caller) public onlyOwner returns(bool) 
+    {
+        authorizedCaller[_caller] = 1;
+        emit AuthorizedCaller(_caller);
+        return true;
+    }
+    
+    /* deauthorize caller */
+    function deAuthorizeCaller(address _caller) public onlyOwner returns(bool) 
+    {
+        authorizedCaller[_caller] = 0;
+        emit DeAuthorizedCaller(_caller);
+        return true;
+    }
     
     /*User Roles
         SUPER_ADMIN,
@@ -57,7 +79,7 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
     
     struct harvester {
         string cropVariety;
-        string tempatureUsed;
+        string temperatureUsed;
         string humidity;
     }    
     
@@ -109,22 +131,6 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
     exporter exporterData;
     importer importerData;
     processor processorData; 
-    
-    /* authorize caller */
-    function authorizeCaller(address _caller) public onlyOwner returns(bool) 
-    {
-        authorizedCaller[_caller] = true;
-        emit AuthorizedCaller(_caller);
-        return true;
-    }
-    
-    /* deauthorize caller */
-    function deAuthorizeCaller(address _caller) public onlyOwner returns(bool) 
-    {
-        authorizedCaller[_caller] = false;
-        emit DeAuthorizedCaller(_caller);
-        return true;
-    }
     
     
     
@@ -196,7 +202,7 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
                              
                             ) public onlyAuthCaller returns(address) {
         
-        uint tmpData = uint(keccak256(msg.sender, now));
+        uint tmpData = uint(keccak256(now));
         address batchNo = address(tmpData);
         
         basicDetailsData.registrationNo = _registrationNo;
@@ -244,7 +250,7 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
                               string _tempatureUsed,
                               string _humidity) public onlyAuthCaller returns(bool){
         harvesterData.cropVariety = _cropVariety;
-        harvesterData.tempatureUsed = _tempatureUsed;
+        harvesterData.temperatureUsed = _tempatureUsed;
         harvesterData.humidity = _humidity;
         
         batchHarvester[batchNo] = harvesterData;
@@ -256,11 +262,11 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
     
     /*get farm Harvester data*/
     function getHarvesterData(address batchNo) public onlyAuthCaller view returns(string cropVariety,
-                                                                                           string tempatureUsed,
+                                                                                           string temperatureUsed,
                                                                                            string humidity){
         
         harvester memory tmpData = batchHarvester[batchNo];
-        return (tmpData.cropVariety, tmpData.tempatureUsed, tmpData.humidity);
+        return (tmpData.cropVariety, tmpData.temperatureUsed, tmpData.humidity);
     }
     
     /*set Exporter data*/

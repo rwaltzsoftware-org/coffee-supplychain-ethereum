@@ -12,6 +12,7 @@ contract CoffeeSupplyChain is Ownable
     event DoneImporting(address indexed user, address indexed batchNo);
     event DoneProcessing(address indexed user, address indexedbatchNo);
     
+    
     /*Modifier*/
     modifier isValidPerformer(address batchNo, string role) {
     
@@ -22,28 +23,17 @@ contract CoffeeSupplyChain is Ownable
     
     /* Storage Variables */    
     SupplyChainStorage supplyChainStorage;
-    address supplyChainAddress; 
     
     constructor(address _supplyChainAddress) public {
         supplyChainStorage = SupplyChainStorage(_supplyChainAddress);
-        supplyChainAddress = _supplyChainAddress;
     }
     
-    function setStorageAddress(address _newAddress) public  onlyOwner returns(bool)
-    {
-        supplyChainAddress = _newAddress;
-        return (true); 
-    }
-    
-    function getStorageAddress() public view onlyOwner returns(address)
-    {
-        return (supplyChainAddress); 
-    }
     
     /* Get Next Action  */    
-    function getNextAction(address _batchNo) public view returns(string)
+    function getNextAction(address _batchNo) public view returns(string action)
     {
-        return supplyChainStorage.getNextAction(_batchNo);
+       (action) = supplyChainStorage.getNextAction(_batchNo);
+       return (action);
     }
     
     /* perform Basic Cultivation */
@@ -71,7 +61,6 @@ contract CoffeeSupplyChain is Ownable
     function getFarmInspectorData(address _batchNo) public view returns (string coffeeFamily,string typeOfSeed,string fertilizerUsed) {
         /* Call Storage Contract */
         (coffeeFamily, typeOfSeed, fertilizerUsed) = supplyChainStorage.getFarmInspectorData(_batchNo);  
-        
         return (coffeeFamily, typeOfSeed, fertilizerUsed);
     }
     
@@ -92,11 +81,10 @@ contract CoffeeSupplyChain is Ownable
     
     /* get Harvest */
     
-    function getHarvesterData(address _batchNo) public view returns (string cropVariety, string tempatureUsed, string humidity) {
+    function getHarvesterData(address _batchNo) public view returns (string cropVariety, string temperatureUsed, string humidity) {
         /* Call Storage Contract */
-        (cropVariety, tempatureUsed, humidity) = supplyChainStorage.getHarvesterData(_batchNo);  
-        
-        return (cropVariety, tempatureUsed, humidity);
+        (cropVariety, temperatureUsed, humidity) =  supplyChainStorage.getHarvesterData(_batchNo);  
+        return (cropVariety, temperatureUsed, humidity);
     }
     
     /* perform Harvest */
@@ -125,16 +113,23 @@ contract CoffeeSupplyChain is Ownable
                                                                     uint256 plantNo,
                                                                     uint256 exporterId) {
         /* Call Storage Contract */
-        (quantity, 
-        destinationAddress, 
-        shipName, 
-        shipNo, 
-        departureDateTime, 
+       (quantity,
+        destinationAddress,
+        shipName,
+        shipNo,
+        departureDateTime,
         estimateDateTime,
         plantNo,
-        exporterId) = supplyChainStorage.getExporterData(_batchNo);  
+        exporterId) =  supplyChainStorage.getExporterData(_batchNo);  
         
-        return (quantity,destinationAddress,shipName,shipNo,departureDateTime,estimateDateTime,plantNo,exporterId);
+        return (quantity,
+                destinationAddress,
+                shipName,
+                shipNo,
+                departureDateTime,
+                estimateDateTime,
+                plantNo,
+                exporterId);
     }
     
     /* perform Export */
@@ -167,16 +162,24 @@ contract CoffeeSupplyChain is Ownable
                                                                     string warehouseAddress,
                                                                     uint256 importerId) {
         /* Call Storage Contract */
-        (quantity, 
-        shipName, 
-        shipNo, 
-        arrivalDateTime, 
-        transportInfo, 
-        warehouseName,
-        warehouseAddress,
-        importerId) = supplyChainStorage.getImporterData(_batchNo);  
+        (quantity,
+         shipName,
+         shipNo,
+         arrivalDateTime,
+         transportInfo,
+         warehouseName,
+         warehouseAddress,
+         importerId) =  supplyChainStorage.getImporterData(_batchNo);  
+         
+         return (quantity,
+                 shipName,
+                 shipNo,
+                 arrivalDateTime,
+                 transportInfo,
+                 warehouseName,
+                 warehouseAddress,
+                 importerId);
         
-        return (quantity,shipName,shipNo,arrivalDateTime,transportInfo,warehouseName,warehouseAddress,importerId);
     }
     
     /* perform Import */
@@ -209,15 +212,22 @@ contract CoffeeSupplyChain is Ownable
                                                                     string processorName,
                                                                     string processorAddress) {
         /* Call Storage Contract */
-        (quantity, 
-        tempature, 
-        rostingDuration, 
-        internalBatchNo, 
-        packageDateTime, 
-        processorName,
-        processorAddress) = supplyChainStorage.getProccesorData(_batchNo);  
-        
-        return (quantity,tempature,rostingDuration,internalBatchNo,packageDateTime,processorName,processorAddress);
+        (quantity,
+         tempature,
+         rostingDuration,
+         internalBatchNo,
+         packageDateTime,
+         processorName,
+         processorAddress) =  supplyChainStorage.getProccesorData(_batchNo);  
+         
+         return (quantity,
+                 tempature,
+                 rostingDuration,
+                 internalBatchNo,
+                 packageDateTime,
+                 processorName,
+                 processorAddress);
+ 
     }
     
     /* perform Processing */

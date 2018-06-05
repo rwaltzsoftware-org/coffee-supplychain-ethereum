@@ -2,33 +2,21 @@ pragma solidity ^0.4.23;
 import "./SupplyChainStorage.sol";
 import "./Ownable.sol";
 
-contract CoffeeSupplyChainUser is Ownable {
-    
-    /*Events*/
+contract SupplyChainUser is Ownable
+{
+     /*Events*/ 
     event UserUpdate(address indexed user, string name, string contactNo, string role, bool isActive, string profileHash);
-    event UserRoleUpdate(address indexed user, string indexed role);
+    event UserRoleUpdate(address indexed user, string indexed role); 
     
-    /* Storage Variables */    
+     /* Storage Variables */    
     SupplyChainStorage supplyChainStorage;
-    address supplyChainAddress; 
     
     constructor(address _supplyChainAddress) public {
         supplyChainStorage = SupplyChainStorage(_supplyChainAddress);
-        supplyChainAddress = _supplyChainAddress;
     }
     
-    function setStorageAddress(address _newAddress) public  onlyOwner returns(bool)
-    {
-        supplyChainAddress = _newAddress;
-        return (true); 
-    }
     
-    function getStorageAddress() public view onlyOwner returns(address)
-    {
-        return (supplyChainAddress); 
-    }
-    
-    /* Create/Update User */
+     /* Create/Update User */
 
     function updateUser(string _name, string _contactNo, string _role, bool _isActive,string _profileHash) public returns(bool)
     {
@@ -44,7 +32,7 @@ contract CoffeeSupplyChainUser is Ownable {
         return status;
     }
     
-        /* Create/Update User For Admin  */
+    /* Create/Update User For Admin  */
     function updateUserForAdmin(address _userAddress, string _name, string _contactNo, string _role, bool _isActive,string _profileHash) public onlyOwner returns(bool)
     {
         require(_userAddress != address(0));
@@ -58,16 +46,14 @@ contract CoffeeSupplyChainUser is Ownable {
         
         return status;
     }
-
     
-      /* get User */
+    /* get User */
     function getUser(address _userAddress) public view returns(string name, string contactNo, string role, bool isActive , string profileHash){
         require(_userAddress != address(0));
         
         /*Getting value from struct*/
-        (name, contactNo, role, isActive, profileHash) = supplyChainStorage.getUser(_userAddress);
-    
-        return (name, contactNo, role, isActive, profileHash);
+       (name, contactNo, role, isActive, profileHash) = supplyChainStorage.getUser(_userAddress);
+       
+       return (name, contactNo, role, isActive, profileHash);
     }
-
 }
