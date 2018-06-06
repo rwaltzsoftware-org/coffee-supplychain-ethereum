@@ -16,8 +16,8 @@ contract CoffeeSupplyChain is Ownable
     /*Modifier*/
     modifier isValidPerformer(address batchNo, string role) {
     
-        require(keccak256(supplyChainStorage.getUserRole(msg.sender)) == keccak256(role));
-        require(keccak256(supplyChainStorage.getNextAction(batchNo)) == keccak256(role));
+        require(keccak256(abi.encodePacked(supplyChainStorage.getUserRole(msg.sender))) == keccak256(abi.encodePacked(role)));
+        require(keccak256(abi.encodePacked(supplyChainStorage.getNextAction(batchNo))) == keccak256(abi.encodePacked(role)));
         _;
     }
     

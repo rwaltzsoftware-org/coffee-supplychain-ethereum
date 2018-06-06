@@ -17,7 +17,15 @@ module.exports =
 		      return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/8U0AE4DUGSh8lVO3zmma");
 		    },
 		    network_id: '4',		 
-		    gas: 4500000,
+		    gas: 6054449,
+		    gasPrice: 1000000000
 		}  
-    }
+    },
+    mocha: {
+	    reporter: 'eth-gas-reporter',
+	    reporterOptions : {
+	      currency: 'CHF',
+	      gasPrice: 21
+	    }
+	}
 };
