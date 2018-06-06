@@ -1,3 +1,4 @@
+/*Require for events*/
 require('truffle-test-utils').init();
 
 var SupplyChainStorage = artifacts.require("../contracts/SupplyChainStorage.sol");
