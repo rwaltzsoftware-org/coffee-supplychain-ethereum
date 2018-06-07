@@ -13,7 +13,7 @@ module.exports = function(deployer){
     {
    		return deployer.deploy(SupplyChainUser,SupplyChainStorage.address)
 	   
-    })/*.then(()=>
+    }).then(()=>
     {
    		return SupplyChainStorage.deployed();
     }).then(function(instance)
@@ -23,12 +23,14 @@ module.exports = function(deployer){
 
 	}).then(function(instance)
 	{
-		return instance.authorizeCaller(SupplyChainUser.address); 
+		// return instance.authorizeCaller(SupplyChainUser.address); 
+		instance.authorizeCaller(SupplyChainUser.address); 
+		process.exit(0); /* Fix for Saving artifact issue on metamask */
 	})
 	.catch(function(error)
 	{
 		console.log(error);
-	})*/;
+	});
 };
 
 
