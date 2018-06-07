@@ -6,22 +6,19 @@ The coffee supply chain is the sequence of activities and process  to bring raw 
 
 #### Problems in Existing System
 ---
-In existing coffee supply chain, the track of procedure of raw coffee beans to processed coffee is not properly maintained on papers and in digital format. Because of this the buyer of coffee remains doubtful about the quality and brand of coffee. As we are not aware about the process, transporters we are also not sure about the quality assurance. Because of this issues in coffee supply chain, People are selling fake coffee by white labeling the names and tags of branded coffees. 
+
+- Currently Coffee trade mostly relies on fax machines and emails to send and recieve contracts across the globe, resulting into slower and error prone paper work.
+
+- Blockchain can solve this by providing immutable and verifiable data sources
+
+		
+ 
 
 #### What we are providing?
 ---
 
-- Initial stage in our project is to create new coffee batch which is performed by admin only. 
+- We have implemented smart contract addressing the issue of storing critical data necessary at different stages of supplychain and making it verifiable by all stakeholders in supplychain.
 
-- After batch initialization farm-inspection is done and the information is updated by farm-inspectors in to the blockchain. 
-
-- After inspection of farm, harvester grows coffee in their farms the update the information of harvesting to the blockchain. 
-
-- When the raw coffee is ready to export , it gets exported by exporting organizations and they also have to update their information into blockchain. 
-
-- After exporting coffee beans can be imported by the processing units and warehouses for doing further process on coffee beans. Importers also have to provide importing information to update it on blockchain. 
-
-- Processors processes the raw coffee beans and update to blockchain. This is how one batch of coffee beans gets completed.
 
 #### Application Workflow Diagram
 ---
@@ -39,9 +36,9 @@ In existing coffee supply chain, the track of procedure of raw coffee beans to p
 
 **Admin :** Admin creates new batch which is initial stage of coffee batch.
 
-**Farm-Inspector :**  Farm-inspector are responsible for inspecting coffee farms and updating the information like coffee family, type of seed and fertilizers used for growing coffee
+**Farm-Inspector :**  Farm-inspectors are responsible for inspecting coffee farms and updating the information like coffee family, type of seed and fertilizers used for growing coffee.
 
-**Harvester :** Harvesters grows coffee beans in their farms and updates the information of crop variety, temperature used and humidity used for growing beans in blockchain.
+**Harvester :** Harvesters conducting plucking, hulling , polishing , grading and sorting activities, further updating the information of crop variety, temperature used and humidity maintained during the process.
 
 **Exporter :** Exporters are the organization who exports coffee beans throughout the world. Exporter  adds quantity, destination address, ship name, ship number , estimated date and time and exporter id.
 
@@ -57,8 +54,8 @@ In existing coffee supply chain, the track of procedure of raw coffee beans to p
 -  Infura
 -  Truffle
 -  IPFS
-- Web3JS
--  lampp
+-  Web3JS
+-  Apache and PHP
 
 #### Prerequisites
 ---
@@ -70,9 +67,62 @@ In existing coffee supply chain, the track of procedure of raw coffee beans to p
 
 #### Deployment Steps:
 ---
-`git clone https://github.com/imperialsoftech/okt-token`
-`cd okt-token/`
-`npm install`
+**Setting up Ethereum Smart Contract:**
+
+```
+git clone https://github.com/imperialsoftech/coffee-supplychain-ethereum`
+cd coffee-supplychain-ethereum/
+```
+
+**Update truffle.js **
+
+```
+var HDWalletProvider = require("truffle-hdwallet-provider");
+module.exports = 
+{
+    networks: 
+    {
+	    rinkeby: {
+		    provider: function() {
+		      var mnemonic = 'steel neither flight ...'; //put ETH wallet 12 mnemonic code	
+		      return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/<API_KEY_HERE>"); // 
+		    },
+		    network_id: '4',
+		    gas: 6054449,
+		    gasPrice: 1000000000
+		}  
+    }
+};
+```
+
+Go to your project folder in terminal then execute :
+
+```
+truffle compile 
+truffle migrate --network rinkeby
+```
+
+---
+**Setting up UI:**
+
+- Navigate to Apache Document Root in terminal
+```
+git clone https://github.com/imperialsoftech/coffee-supplychain-ui`
+cd coffee-supplychain-ui/
+```
+**For User Panel:**
+
+- Open http://<URL>/coffee-supplychain-ui
+
+**For Admin Panel:**
+
+- Open http://<URL>/coffee-supplychain-ui/admin.php
+
+**Please note:
+
+Admin Panel can be only accessed address that deployed the contracts
+
+
 
 #### Development Screen's
 ---
@@ -199,3 +249,7 @@ The stages which are yet not updated in blockchain are denoted using cross sign 
 
 You can also find out the name, address and contact information of user who updated the particular stage in coffee supply chain.
 
+---
+##### Todo:
+
+- Truffle Tests
