@@ -22,7 +22,7 @@ The coffee supply chain is the sequence of activities and process  to bring raw 
 
 #### Application Workflow Diagram
 ---
-![](http://blockchain.imperialsoftech.com/coffee-supplychain-screens/workflow12.png)
+![](http://blockchain.imperialsoftech.com/coffee-supplychain-screens/workflow.png)
 
 #### In this application we have Six stages
 ---
@@ -128,7 +128,7 @@ Admin Panel can be only accessed address that deployed the contracts
 ---
 #### Login Page
 ---
-![](http://blockchain.imperialsoftech.com/coffee-supplychain-screens/login-new12.png)
+![](http://blockchain.imperialsoftech.com/coffee-supplychain-screens/login-new.png)
 
 - Get MetaMask - You can go for this option if you don't have metamask wallet in your chrome or firefox browser and create your own ethereum wallet
 - Log in - You can login to user or admin
@@ -186,7 +186,7 @@ Admin Panel can be only accessed address that deployed the contracts
 
 ##### Batch Details
 ###### Batch all process completed
-![](http://blockchain.imperialsoftech.com/coffee-supplychain-screens/Batch-Details-complited12.png)
+![](http://blockchain.imperialsoftech.com/coffee-supplychain-screens/Batch-Details-complited.png)
 
 ###### Batch work in progress
 ![](http://blockchain.imperialsoftech.com/coffee-supplychain-screens/coffeeSupplychain-inprogress.png)
