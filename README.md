@@ -22,7 +22,7 @@ The coffee supply chain is the sequence of activities and process  to bring raw 
 
 #### Application Workflow Diagram
 ---
-![](http://blockchain.imperialsoftech.com/coffee-supplychain-screens/workflow.png)
+![](screens/workflow.png)
 
 #### In this application we have Six stages
 ---
@@ -128,7 +128,7 @@ Admin Panel can be only accessed address that deployed the contracts
 ---
 #### Login Page
 ---
-![](http://blockchain.imperialsoftech.com/coffee-supplychain-screens/login-new.png)
+![](screens/login.png)
 
 - Get MetaMask - You can go for this option if you don't have metamask wallet in your chrome or firefox browser and create your own ethereum wallet
 - Log in - You can login to user or admin
@@ -157,7 +157,7 @@ Admin Panel can be only accessed address that deployed the contracts
 #### Admin Activities
 ---
 ##### Create user
-![](http://blockchain.imperialsoftech.com/coffee-supplychain-screens/create-user.png)
+![](screens/create-user.png)
 
 - Only admin can add new user in coffee supply chain
 - In the Add User form admin have to provide basic information of user like User Wallet Address, Username, User Contact Number, Role of User , User Status means the user is activated or deactivated. 
@@ -166,7 +166,7 @@ Admin Panel can be only accessed address that deployed the contracts
 - Admin can find out the newly added user in Users List on Admin dashboard.
 
 ##### Create New Batch
-![](http://blockchain.imperialsoftech.com/coffee-supplychain-screens/create-batch.png)
+![](screens/create-batch.png)
 
 - To add new coffee beans batch, you can use create batch button in batches overview section in admin dashboard. 
 - Here you have to provide basic information of batch like Farmer Registration Number , Farmer’s Name, Farmer’s Address, Exporter Name and Importer Name.
@@ -174,7 +174,7 @@ Admin Panel can be only accessed address that deployed the contracts
 - You can find out the details of particular batch in Actions column by pressing on eye icon ( view-batch page )
 
 ##### Batch Overview
-![](http://blockchain.imperialsoftech.com/coffee-supplychain-screens/admin1.png)
+![](screens/admin1.png)
 
 - Get all coffee batch information in batch overview. We get the in at what stage the batch is processing.You can find out progress of batch using eye icon ( view batch page).
 - By clicking on the read arrow at the end of batch id, admin can find out the transaction details of that particular batch. 
@@ -186,10 +186,10 @@ Admin Panel can be only accessed address that deployed the contracts
 
 ##### Batch Details
 ###### Batch all process completed
-![](http://blockchain.imperialsoftech.com/coffee-supplychain-screens/Batch-Details-complited.png)
+![](screens/Batch-Details-complited.png)
 
 ###### Batch work in progress
-![](http://blockchain.imperialsoftech.com/coffee-supplychain-screens/coffeeSupplychain-inprogress.png)
+![](screens/coffeeSupplychain-inprogress.png)
 
 - In View Batch Page,/ admin will be able to see the progressive information of coffee batch. 
 - Here we can get all details of each stage and also the name and address of user who updated the particular stage. 
@@ -197,30 +197,30 @@ Admin Panel can be only accessed address that deployed the contracts
 
 #### User Dashboard
 ---
-![](http://blockchain.imperialsoftech.com/coffee-supplychain-screens/user.png)
+![](screens/user.png)
 
 #### User Activities
 ---
 ##### Update User Profile
-![](http://blockchain.imperialsoftech.com/coffee-supplychain-screens/user-update-user.png)
+![](screens/user-update-user.png)
 
 - To update , user profile you can use Update Profile form where you have to fill the information of user like full name of user, his / her contact number and profile image of user. 
 - In this form role of user and user status can only be modified by admin, user can not edit this information.
 
 ###### Batch Updation by Farm-inspector
-![](http://blockchain.imperialsoftech.com/coffee-supplychain-screens/perform-farm-inspection.png)
+![](screens/perform-farm-inspection.png)
 
 - To submit the farm inspection information, user’s having role of Farm inspector will be able to see the update button in batch overview.
 - By pressing on update button farm inspector can update information by providing Type of Seed, Coffee Family and Fertilizer Used. 
 - After successful submit of farm inspectors information batch progress to next step which is harvesting.
 
 ###### Batch Updation by Harvester
-![](http://blockchain.imperialsoftech.com/coffee-supplychain-screens/perform-harvesting.png)
+![](screens/perform-harvesting.png)
 
 - Harvester grows coffee beans and after complete nourishing of coffee beans harvester makes the bean ready to export by updating Coffee Variety, Temperature and humidity to blockchain.
 
 ###### Batch Updation by Exporter
-![](http://blockchain.imperialsoftech.com/coffee-supplychain-screens/perform-exporting.png)
+![](screens/perform-exporting.png)
 
 - Exporters sends the raw coffee beans for further process on beans as per demands and they update their own information to blockchain. 
 - Once the coffee beans are ready to export, Users having role of Exporters updates the information of Exporting.
@@ -228,14 +228,14 @@ Admin Panel can be only accessed address that deployed the contracts
 - By pressing submit button on the form, exporting information gets stored on blockchain.
 
 ###### Batch Updation by Importer
-![](http://blockchain.imperialsoftech.com/coffee-supplychain-screens/perform-importing.png)
+![](screens/perform-importing.png)
 
 - Warehouses and Organizations who process on raw beans imports the raw coffee beans. While importing coffee beans they have to update their information on blockchain.
 - Information of Quantity, Ship Name, Ship Number, Transporter Information, Warehouse Name , Warehouse Address and Importer’s Id Number. 
 - After importing coffee beans, it goes for processing stage.
 
 ###### Batch Updation by Processor
-![](http://blockchain.imperialsoftech.com/coffee-supplychain-screens/perform-processing.png)
+![](screens/perform-processing.png)
 
 - At last the Processors have to update the processing information like roasting temperature of coffee and get issued the quality certificate, coffee gets ready to sale out in markets.
 - Processing have to fill the information of quantity, temperature, time for roasting, internal batch number, packaging date, processor name and address of processor. 
