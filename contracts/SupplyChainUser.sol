@@ -6,7 +6,7 @@ contract SupplyChainUser is Ownable
 {
      /*Events*/ 
     event UserUpdate(address indexed user, string name, string contactNo, string role, bool isActive, string profileHash);
-    event UserRoleUpdate(address indexed user, string role); 
+    event UserRoleUpdate(address indexed user, string indexed role); 
     
      /* Storage Variables */    
     SupplyChainStorage supplyChainStorage;

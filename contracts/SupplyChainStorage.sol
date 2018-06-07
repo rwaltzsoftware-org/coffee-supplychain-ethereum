@@ -4,7 +4,7 @@ import "./SupplyChainStorageOwnable.sol";
 
 contract SupplyChainStorage is SupplyChainStorageOwnable {
     
-    
+    address public lastAccess;
     constructor() public {
         authorizedCaller[msg.sender] = 1;
         emit AuthorizedCaller(msg.sender);
@@ -14,21 +14,21 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
     event AuthorizedCaller(address caller);
     event DeAuthorizedCaller(address caller);
 
-    event UserUpdate(address indexed user, string name, string contactNo, string role, bool isActive, string profileHash);
-    event UserRoleUpdate(address indexed user, string role); 
-
     event PerformCultivation(address indexed user, address indexed batchNo);
     event DoneInspection(address indexed user, address indexed batchNo);
     event DoneHarvesting(address indexed user, address indexed batchNo);
     event DoneExporting(address indexed user, address indexed batchNo);
     event DoneImporting(address indexed user, address indexed batchNo);
-    event DoneProcessing(address indexed user, address indexed batchNo);
+    event DoneProcessing(address indexed user, address indexedbatchNo);
     
-    
+
+    event UserUpdate(address indexed user, string name, string contactNo, string role, bool isActive, string profileHash);
+    event UserRoleUpdate(address indexed user, string indexed role); 
     /* Modifiers */
     
     modifier onlyAuthCaller(){
-       require(authorizedCaller[msg.sender] == 1);
+        lastAccess = msg.sender;
+        require(authorizedCaller[msg.sender] == 1);
         _;
     }
     
@@ -119,7 +119,7 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
         uint256 quantity;
         uint256 rostingDuration;
         uint256 packageDateTime;
-        string tempature;
+        string temperature;
         string internalBatchNo;
         string processorName;
         string processorAddress;
@@ -174,9 +174,6 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
         userDetails[_userAddress] = userDetail;
         userRole[_userAddress] = _role;
         
-        emit UserUpdate(_userAddress,_name,_contactNo,_role,_isActive,_profileHash);
-        emit UserRoleUpdate(_userAddress,_role);
-        
         return true;
     }  
     
@@ -215,7 +212,7 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
                              
                             ) public onlyAuthCaller returns(address) {
         
-        uint tmpData = uint(keccak256(abi.encodePacked(now)));
+        uint tmpData = uint(keccak256(msg.sender, now));
         address batchNo = address(tmpData);
         
         basicDetailsData.registrationNo = _registrationNo;
@@ -228,7 +225,6 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
         
         nextAction[batchNo] = 'FARM_INSPECTION';   
         
-        emit PerformCultivation(msg.sender, batchNo);     
         
         return batchNo;
     }
@@ -246,8 +242,6 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
         
         nextAction[batchNo] = 'HARVESTER'; 
         
-        emit DoneInspection(msg.sender, batchNo);
-
         return true;
     }
     
@@ -263,17 +257,16 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
     /*set Harvester data*/
     function setHarvesterData(address batchNo,
                               string _cropVariety,
-                              string _tempatureUsed,
+                              string _temperatureUsed,
                               string _humidity) public onlyAuthCaller returns(bool){
         harvesterData.cropVariety = _cropVariety;
-        harvesterData.temperatureUsed = _tempatureUsed;
+        harvesterData.temperatureUsed = _temperatureUsed;
         harvesterData.humidity = _humidity;
         
         batchHarvester[batchNo] = harvesterData;
         
         nextAction[batchNo] = 'EXPORTER'; 
-        emit DoneHarvesting(msg.sender, batchNo);
-
+        
         return true;
     }
     
@@ -293,7 +286,6 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
                               string _shipName,
                               string _shipNo,
                               uint256 _estimateDateTime,
-                              uint256 _plantNo,
                               uint256 _exporterId) public onlyAuthCaller returns(bool){
         
         exporterData.quantity = _quantity;
@@ -302,14 +294,12 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
         exporterData.shipNo = _shipNo;
         exporterData.departureDateTime = now;
         exporterData.estimateDateTime = _estimateDateTime;
-        exporterData.plantNo = _plantNo;
         exporterData.exporterId = _exporterId;
         
         batchExporter[batchNo] = exporterData;
         
         nextAction[batchNo] = 'IMPORTER'; 
-        emit DoneExporting(msg.sender, batchNo);
-
+        
         return true;
     }
     
@@ -320,7 +310,6 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
                                                                 string shipNo,
                                                                 uint256 departureDateTime,
                                                                 uint256 estimateDateTime,
-                                                                uint256 plantNo,
                                                                 uint256 exporterId){
         
         
@@ -333,7 +322,6 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
                 tmpData.shipNo, 
                 tmpData.departureDateTime, 
                 tmpData.estimateDateTime, 
-                tmpData.plantNo,
                 tmpData.exporterId);
                 
         
@@ -362,8 +350,7 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
         batchImporter[batchNo] = importerData;
         
         nextAction[batchNo] = 'PROCESSOR'; 
-        emit DoneImporting(msg.sender, batchNo);
-
+        
         return true;
     }
     
@@ -395,7 +382,7 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
     /*set Proccessor data*/
     function setProcessorData(address batchNo,
                               uint256 _quantity, 
-                              string _tempature,
+                              string _temperature,
                               uint256 _rostingDuration,
                               string _internalBatchNo,
                               uint256 _packageDateTime,
@@ -404,7 +391,7 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
         
         
         processorData.quantity = _quantity;
-        processorData.tempature = _tempature;
+        processorData.temperature = _temperature;
         processorData.rostingDuration = _rostingDuration;
         processorData.internalBatchNo = _internalBatchNo;
         processorData.packageDateTime = _packageDateTime;
@@ -412,16 +399,17 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
         processorData.processorAddress = _processorAddress;
         
         batchProcessor[batchNo] = processorData;
-        emit DoneProcessing(msg.sender, batchNo);
-
+        
+        nextAction[batchNo] = 'DONE'; 
+        
         return true;
     }
     
     
-    /*get Proccessor data*/
-    function getProccesorData( address batchNo) public onlyAuthCaller view returns(
+    /*get Processor data*/
+    function getProcessorData( address batchNo) public onlyAuthCaller view returns(
                                                                                         uint256 quantity,
-                                                                                        string tempature,
+                                                                                        string temperature,
                                                                                         uint256 rostingDuration,
                                                                                         string internalBatchNo,
                                                                                         uint256 packageDateTime,
@@ -433,7 +421,7 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
         
         return (
                 tmpData.quantity, 
-                tmpData.tempature, 
+                tmpData.temperature, 
                 tmpData.rostingDuration, 
                 tmpData.internalBatchNo,
                 tmpData.packageDateTime,

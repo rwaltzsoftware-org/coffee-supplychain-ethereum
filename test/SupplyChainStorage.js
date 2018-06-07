@@ -131,7 +131,7 @@ contract('SupplyChainStorage',function(accounts)
 																    _importerName,{from:authorizedCaller});
 
 		const basicDetailsEvent = await basicDetailsWatcher.get();
-
+	
 		/* Check Event wise */
 		console_log("Checking PerformCultivation Event: ");
 
@@ -199,14 +199,14 @@ contract('SupplyChainStorage',function(accounts)
 
 
 		var _coffeeFamily = "Rubiaceae";
-		var _tempatureUsed = "60 Degree";
+		var _temperatureUsed = "60 Degree";
 		var _humidity = "95";
 
 
 		const harvestStatus = await instanceSupplyChainStorage.setHarvesterData(
 																	batchNo,
 																	_coffeeFamily,
-																    _tempatureUsed,
+																    _temperatureUsed,
 																    _humidity,{from:authorizedCaller});
 
 		const harvestEvent = await harvestWatcher.get();
@@ -229,12 +229,94 @@ contract('SupplyChainStorage',function(accounts)
 		const harvestData = await instanceSupplyChainStorage.getHarvesterData(harvestEvent[0].args.batchNo,{from:authorizedCaller});			
 
 		assert.equal(harvestData[0],_coffeeFamily,"_coffeeFamily Check:");
-		assert.equal(harvestData[1],_tempatureUsed,"_tempatureUsed Check:");
+		assert.equal(harvestData[1],_temperatureUsed,"_temperatureUsed Check:");
 		assert.equal(harvestData[2],_humidity,"_humidity Check:");
 
 
-		
+		/********************* Exporter Section ***********/
 
+		var _quantity = '10000';
+		var _destinationAddress = 'Germany, Europ';
+		var _shipName = 'Big Tasker Giaent';
+		var _shipNo = 'BT745968';
+		var _estimateDateTime = '1528635600';
+		var _exporterId = '2135465';
+
+		const exportStatus = await instanceSupplyChainStorage.setExporterData(batchNo,
+																			 _quantity,
+																			 _destinationAddress,
+																			 _shipName,
+																			 _shipNo,
+																			 _estimateDateTime,
+																			 _exporterId);
+
+		const exportEvent = await exportWatcher.get();
+		var _batchNo = exportEvent[0].args.batchNo;
+
+		/* Check Event Wise */
+		console.log("Checking DoneExporting Event: ");
+
+		assert.web3Event(exportEvent,{
+			event:'DoneExporting',
+			args:{
+				user:authorizeCaller,
+				batchNo:_batchNo
+			}
+		},'DoneExporting');
+
+		/* Check function call wise */
+		const exportData = await instanceSupplyChainStorage.getExporterData(_batchNo,{from:authorizeCaller});
+
+		assert.equal(exportData[0],_quantity,"_quantity Check:");
+		assert.equal(exportData[1],_destinationAddress,"_destinationAddress Check:");
+		assert.equal(exportData[2],_shipName,"_shipName Check:");
+		assert.equal(exportData[3],_shipNo,"_shipNo Check:");
+		assert.equal(exportData[4],_estimateDateTime,"_estimateDateTime Check:");
+		assert.equal(exportData[5],_exporterId,"_exporterId Check:");
+		
+		/********************* Importer Section ***********/
+
+		var _quantity = '10000';
+		var _shipName = 'Big Tasker Giaent';
+		var _shipNo = 'BT745968';
+		var _transportInfo = 'AK Transport';
+		var _warehouseName = 'Hindani Storage';
+		var _warehouseAddress = 'Loehestrasse 37, 53773 Hennef, GERMANY';
+		var _importerId = '8745236';
+
+		const importStatus = await instanceSupplyChainStorage.setImporterData(batchNo,
+																			  _quantity,
+																			  _shipName,
+																			  _shipNo,
+																			  _transportInfo,
+																			  _warehouseName,
+																			  _warehouseAddress,
+																			  _importerId);
+
+		const importEvent = await importWatcher.get();
+		var _batchNo = importEvent[0].args.batchNo;
+
+		/* Check Event Wise */
+		console.log("Checking DoneImporting Event: ");
+
+		assert.web3Event(importEvent,{
+			event:'DoneImporting',
+			args:{
+				user:authorizeCaller,
+				batchNo:_batchNo
+			}
+		},'DoneImporting');
+
+		/* Check function call wise */
+		const importData = await instanceSupplyChainStorage.getImporterData(_batchNo,{from:authorizeCaller});
+
+		assert.equal(importData[0],_quantity,"_quantity Check:");
+		assert.equal(importData[1],_shipName,"_shipName Check:");
+		assert.equal(importData[2],_shipNo,"_shipNo Check:");
+		assert.equal(importData[3],_transportInfo,"_transportInfo Check:");
+		assert.equal(importData[4],_warehouseName,"_warehouseName Check:");
+		assert.equal(importData[5],_warehouseAddress,"_warehouseAddress Check:");
+		assert.equal(importData[6],_importerId,"_importerId Check:");
 
 		
 	});
