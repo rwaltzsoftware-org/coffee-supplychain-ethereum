@@ -23,6 +23,10 @@ In existing coffee supply chain, the track of procedure of raw coffee beans to p
 
 - Processors processes the raw coffee beans and update to blockchain. This is how one batch of coffee beans gets completed.
 
+#### Application Workflow Diagram
+---
+![](http://blockchain.imperialsoftech.com/coffee-supplychain-screens/workflow.png)
+
 #### In this application we have Six stages
 ---
 
