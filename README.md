@@ -7,9 +7,9 @@ The coffee supply chain is the sequence of activities and process  to bring raw 
 #### Problems in Existing System
 ---
 
-	- Currently Coffee trade mostly relies on fax machines and emails to send and recieve contracts across the globe, resulting into slower and error prone paper work.
+- Currently Coffee trade mostly relies on fax machines and emails to send and recieve contracts across the globe, resulting into slower and error prone paper work.
 
-	- Blockchain can solve this by providing immutable and verifiable data sources
+- Blockchain can solve this by providing immutable and verifiable data sources
 
 		
  
