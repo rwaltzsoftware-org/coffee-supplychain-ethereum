@@ -25,7 +25,7 @@ module.exports = function(deployer){
 	{
 		// return instance.authorizeCaller(SupplyChainUser.address); 
 		instance.authorizeCaller(SupplyChainUser.address); 
-		process.exit(0); /* Fix for Saving artifact issue on metamask */
+		process.exit(0); /* Fix for Saving artifact issue on testnet  */
 	})
 	.catch(function(error)
 	{

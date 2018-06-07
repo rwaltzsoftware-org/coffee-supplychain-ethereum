@@ -63,9 +63,62 @@ The coffee supply chain is the sequence of activities and process  to bring raw 
 
 #### Deployment Steps:
 ---
-`git clone https://github.com/imperialsoftech/okt-token`
-`cd okt-token/`
-`npm install`
+**Setting up Ethereum Smart Contract:**
+
+```
+git clone https://github.com/imperialsoftech/coffee-supplychain-ethereum`
+cd coffee-supplychain-ethereum/
+```
+
+**Update truffle.js **
+
+```
+var HDWalletProvider = require("truffle-hdwallet-provider");
+module.exports = 
+{
+    networks: 
+    {
+	    rinkeby: {
+		    provider: function() {
+		      var mnemonic = 'steel neither flight ...'; //put ETH wallet 12 mnemonic code	
+		      return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/<API_KEY_HERE>"); // 
+		    },
+		    network_id: '4',
+		    gas: 6054449,
+		    gasPrice: 1000000000
+		}  
+    }
+};
+```
+
+Go to your project folder in terminal then execute :
+
+```
+truffle compile 
+truffle migrate --network rinkeby
+```
+
+---
+**Setting up UI:**
+
+- Navigate to Apache Document Root in terminal
+```
+git clone https://github.com/imperialsoftech/coffee-supplychain-ui`
+cd coffee-supplychain-ui/
+```
+**For User Panel:**
+
+- Open http://<URL>/coffee-supplychain-ui
+
+**For Admin Panel:**
+
+- Open http://<URL>/coffee-supplychain-ui/admin.php
+
+**Please note:
+
+Admin Panel can be only accessed address that deployed the contracts
+
+
 
 #### Development Screen's
 ---
