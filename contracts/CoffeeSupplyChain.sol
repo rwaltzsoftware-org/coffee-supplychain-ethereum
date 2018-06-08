@@ -10,7 +10,7 @@ contract CoffeeSupplyChain is Ownable
     event DoneHarvesting(address indexed user, address indexed batchNo);
     event DoneExporting(address indexed user, address indexed batchNo);
     event DoneImporting(address indexed user, address indexed batchNo);
-    event DoneProcessing(address indexed user, address indexedbatchNo);
+    event DoneProcessing(address indexed user, address indexed batchNo);
 
     
     /*Modifier*/
