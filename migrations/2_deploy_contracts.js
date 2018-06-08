@@ -24,8 +24,7 @@ module.exports = function(deployer){
 	}).then(function(instance)
 	{
 		// return instance.authorizeCaller(SupplyChainUser.address); 
-		instance.authorizeCaller(SupplyChainUser.address); 
-		process.exit(0); /* Fix for Saving artifact issue on testnet  */
+		instance.authorizeCaller(SupplyChainUser.address); /* Fix for Saving artifact issue on testnet  */
 	})
 	.catch(function(error)
 	{
