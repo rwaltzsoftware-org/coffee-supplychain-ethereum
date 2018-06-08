@@ -18,11 +18,11 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
     event DoneHarvesting(address indexed user, address indexed batchNo);
     event DoneExporting(address indexed user, address indexed batchNo);
     event DoneImporting(address indexed user, address indexed batchNo);
-    event DoneProcessing(address indexed user, address indexedbatchNo);
+    event DoneProcessing(address indexed user, address indexed batchNo);
     
 
     event UserUpdate(address indexed user, string name, string contactNo, string role, bool isActive, string profileHash);
-    event UserRoleUpdate(address indexed user, string indexed role); 
+    event UserRoleUpdate(address indexed user, string role); 
     /* Modifiers */
     
     modifier onlyAuthCaller(){
