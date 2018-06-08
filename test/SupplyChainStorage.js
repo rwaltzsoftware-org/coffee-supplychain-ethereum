@@ -318,7 +318,49 @@ contract('SupplyChainStorage',function(accounts)
 		assert.equal(importData[5],_warehouseAddress,"_warehouseAddress Check:");
 		assert.equal(importData[6],_importerId,"_importerId Check:");
 
-		
+		/********************* Processor Section ***********/
+
+		var _quantity = '3000';
+		var _temperature = '360';
+		var _rostingDuration = '604800';
+		var _internalBatchNo = 'QW02154';
+		var _packageDateTime = '1528804800';
+		var _processorName = 'Starbucks';
+		var _processorAddress = 'Terminalstrasse, Terminal 2 Ankunft, 85356 Muenchen, Germany';
+
+		const processStatus = await instanceSupplyChainStorage.setProcessorData(batchNo,
+																			  _quantity,
+																			  _temperature,
+																			  _rostingDuration,
+																			  _internalBatchNo,
+																			  _packageDateTime,
+																			  _processorName,
+																			  _processorAddress);
+
+		const processEvent = await processorWatcher.get();
+		var _batchNo = processEvent[0].args.batchNo;
+
+		/* Check Event Wise */
+		console.log("Checking DoneProcessing Event: ");
+
+		assert.web3Event(processEvent,{
+			event:'DoneProcessing',
+			args:{
+				user:authorizeCaller,
+				batchNo:_batchNo
+			}
+		},'DoneProcessing');
+
+		/* Check function call wise */
+		const processData = await instanceSupplyChainStorage.getProcessorData(_batchNo,{from:authorizeCaller});
+
+		assert.equal(processData[0],_quantity,"_quantity Check:");
+		assert.equal(processData[1],_temperature,"_temperature Check:");
+		assert.equal(processData[2],_rostingDuration,"_rostingDuration Check:");
+		assert.equal(processData[3],_internalBatchNo,"_internalBatchNo Check:");
+		assert.equal(processData[4],_packageDateTime,"_packageDateTime Check:");
+		assert.equal(processData[5],_processorName,"_processorName Check:");
+		assert.equal(processData[6],_processorAddress,"_processorAddress Check:");
 	});
 })
 

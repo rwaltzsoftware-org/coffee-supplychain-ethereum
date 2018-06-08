@@ -4,7 +4,6 @@ import "./SupplyChainStorageOwnable.sol";
 
 contract SupplyChainStorage is SupplyChainStorageOwnable {
     
-    address public lastAccess;
     constructor() public {
         authorizedCaller[msg.sender] = 1;
         emit AuthorizedCaller(msg.sender);
@@ -27,7 +26,6 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
     /* Modifiers */
     
     modifier onlyAuthCaller(){
-        lastAccess = msg.sender;
         require(authorizedCaller[msg.sender] == 1);
         _;
     }
