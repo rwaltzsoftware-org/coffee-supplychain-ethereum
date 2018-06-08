@@ -21,8 +21,7 @@ contract('CoffeeSupplyChain', function(accounts) {
 		await this.supplyChainStorage.authorizeCaller(this.supplyChainUser.address,{from: authorizedCaller});
 	});	
 
-	describe("Cultivation Activities",() =>
-	{
+	describe("Cultivation Activities",() => {
 
 		
 
