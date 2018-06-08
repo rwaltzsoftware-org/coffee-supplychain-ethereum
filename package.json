@@ -1,0 +1,27 @@
+{
+  "name": "coffee-supplychain-contract",
+  "version": "1.0.0",
+  "description": "This project showcases the journey of coffee beans on blockchain.",
+  "main": "truffle.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/vikas_imperialsoftech/coffee-supplychain-contract.git"
+  },
+  "author": "Imperial Softech",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/vikas_imperialsoftech/coffee-supplychain-contract/issues"
+  },
+  "homepage": "https://gitlab.com/vikas_imperialsoftech/coffee-supplychain-contract#README",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "eth-gas-reporter": "^0.1.7",
+    "truffle-hdwallet-provider": "0.0.5"
+  }
+}
