@@ -250,6 +250,11 @@ The stages which are yet not updated in blockchain are denoted using cross sign 
 You can also find out the name, address and contact information of user who updated the particular stage in coffee supply chain.
 
 ---
+##### References:
+
+Journey of Coffee - Blockchain Supply Chain - Provenance to Consumption: https://www.youtube.com/watch?v=YOr9A_TygBk
+
+---
 ##### Todo:
 
 - Truffle Tests
