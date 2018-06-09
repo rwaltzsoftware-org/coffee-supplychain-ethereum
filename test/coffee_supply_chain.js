@@ -25,7 +25,54 @@ contract('CoffeeSupplyChain', function(accounts) {
 		await this.supplyChainStorage.authorizeCaller(this.supplyChainUser.address,{from: authorizedCaller});
 	});	
 
+	async function prepareFarmInspector(contract)
+	{
+		var _name = "Alice";
+		var _contactNo = "8986587989";
+		var _role = "FARM_INSPECTION";
+		var _isActive = true;
+		var _profileHash = "Sample Hash";
 
+		return 	await contract
+					.updateUserForAdmin(farmInspector,
+										_name,
+										_contactNo,
+										_role,
+										_isActive,
+										_profileHash,
+										{from:authorizedCaller});
+	}
+
+	async function addFarmBasicDetails(contract)
+	{
+		var _registrationNo = "123456789";
+		var _farmerName = "Ramu Kaka";
+		var _farmAddress = "Nashik";
+		var _exporterName = "Rudra Logistics";
+		var _importerName = "Boulders Logistics";
+
+		return  await contract
+						.addBasicDetails(
+								_registrationNo,
+								_farmerName,
+							    _farmAddress,
+							    _exporterName,
+							    _importerName,{from:authorizedCaller});
+	}
+
+	async function updateFarmInspectorData(contract,batchNo)
+	{
+		var _coffeeFamily = "Rubiaceae";
+		var _typeOfSeed = "Coffee Arabica";
+		var _fertilizerUsed = "Organic";
+
+		return await contract
+						.updateFarmInspectorData(
+											batchNo,
+											_coffeeFamily,
+										    _typeOfSeed,
+										    _fertilizerUsed,{from:farmInspector});
+	}
 	describe("Cultivation Activities",() => {
 
 		var batchNo = false;
@@ -36,22 +83,8 @@ contract('CoffeeSupplyChain', function(accounts) {
 
 			/* Set Basic Details */
 
-			var _registrationNo = "123456789";
-			var _farmerName = "Ramu Kaka";
-			var _farmAddress = "Nashik";
-			var _exporterName = "Rudra Logistics";
-			var _importerName = "Boulders Logistics";
-
-
-			const { logs } = await this.coffeeSupplyChain
-										.addBasicDetails(
-														_registrationNo,
-														_farmerName,
-														_farmAddress,
-														_exporterName,
-														_importerName,{from:authorizedCaller});
-
-
+			const { logs } = addFarmBasicDetails(this.coffeeSupplyChain);
+														
 			/* Check if Event Exists */
 			const event = logs.find(e => e.event === 'PerformCultivation');
 			assert.exists(event,"PerformCultivation event does not exists");
@@ -62,19 +95,9 @@ contract('CoffeeSupplyChain', function(accounts) {
 
 		it("should get cultivation basic details",async() => {
 
-			var _registrationNo = "123456789";
-			var _farmerName = "Ramu Kaka";
-			var _farmAddress = "Nashik";
-			var _exporterName = "Rudra Logistics";
-			var _importerName = "Boulders Logistics";
+			/* Set Basic Details */
 
-			const { logs } = await this.coffeeSupplyChain
-										.addBasicDetails(
-														_registrationNo,
-														_farmerName,
-													    _farmAddress,
-													    _exporterName,
-													    _importerName,{from:authorizedCaller});
+			const { logs } = addFarmBasicDetails(this.coffeeSupplyChain);
 
 			const event = logs.find(e => e.event === 'PerformCultivation');
 			batchNo = event.args.batchNo;
@@ -91,69 +114,22 @@ contract('CoffeeSupplyChain', function(accounts) {
 
 		it("should update farm inspection details",async() => {
 
-			
-
-			/* Add User with FARM_INSPECTION Role */
-
-			var _name = "Alice";
-			var _contactNo = "8986587989";
-			var _role = "FARM_INSPECTION";
-			var _isActive = true;
-			var _profileHash = "Sample Hash";
-
-			await this.supplyChainUser
-						.updateUserForAdmin(farmInspector,
-											_name,
-											_contactNo,
-											_role,
-											_isActive,
-											_profileHash,
-											{from:authorizedCaller});
-
+			/* Prepare Farm Inspector */
+			await prepareFarmInspector(this.supplyChainUser);								
 
 			/* Set Basic Details */
 
-			var _registrationNo = "123456789";
-			var _farmerName = "Ramu Kaka";
-			var _farmAddress = "Nashik";
-			var _exporterName = "Rudra Logistics";
-			var _importerName = "Boulders Logistics";
-
-			var { logs } = await this.coffeeSupplyChain
-												.addBasicDetails(
-														_registrationNo,
-														_farmerName,
-													    _farmAddress,
-													    _exporterName,
-													    _importerName,{from:authorizedCaller});
-
+			var { logs } = await addFarmBasicDetails(this.coffeeSupplyChain);
 
 			const basicDetailsEvent = logs.find(e => e.event === 'PerformCultivation');
 			batchNo = basicDetailsEvent.args.batchNo;
 
-			
-
-			/* Update Farm Inspection */
-
-			var _coffeeFamily = "Rubiaceae";
-			var _typeOfSeed = "Coffee Arabica";
-			var _fertilizerUsed = "Organic";
-
-
-
-			var { logs } = await this.coffeeSupplyChain
-													.updateFarmInspectorData(
-																		batchNo,
-																		_coffeeFamily,
-																	    _typeOfSeed,
-																	    _fertilizerUsed,{from:farmInspector});
-
+			/* Update Farm Inspector Data */
+			var { logs } = await updateFarmInspectorData(this.coffeeSupplyChain,batchNo);
 
 			/* Check if Event Exists */
 			const farmInspectionEvent = logs.find(e => e.event === 'DoneInspection');
 			assert.exists(farmInspectionEvent,"DoneInspection event does not exists");
-
-
 
 		});
 
@@ -185,12 +161,12 @@ contract('CoffeeSupplyChain', function(accounts) {
 			var _importerName = "Boulders Logistics";
 
 			var { logs } = await this.coffeeSupplyChain
-													.addBasicDetails(
-														_registrationNo,
-														_farmerName,
-													    _farmAddress,
-													    _exporterName,
-													    _importerName,{from:authorizedCaller});
+										.addBasicDetails(
+											_registrationNo,
+											_farmerName,
+										    _farmAddress,
+										    _exporterName,
+										    _importerName,{from:authorizedCaller});
 
 
 			const basicDetailsEvent = logs.find(e => e.event === 'PerformCultivation');
@@ -207,11 +183,11 @@ contract('CoffeeSupplyChain', function(accounts) {
 
 
 			var { logs } = await this.coffeeSupplyChain
-														.updateFarmInspectorData(
-															batchNo,
-															_coffeeFamily,
-															_typeOfSeed,
-															_fertilizerUsed,{from:farmInspector});
+										.updateFarmInspectorData(
+											batchNo,
+											_coffeeFamily,
+											_typeOfSeed,
+											_fertilizerUsed,{from:farmInspector});
 
 
 			/* Check if Event Exists */
@@ -1458,3 +1434,4 @@ contract('CoffeeSupplyChain', function(accounts) {
 	});
  
 });
+
