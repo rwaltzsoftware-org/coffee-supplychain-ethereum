@@ -112,13 +112,13 @@ cd coffee-supplychain-ui/
 ```
 **For User Panel:**
 
-- Open http://<URL>/coffee-supplychain-ui
+- Open http://blockchain.imperialsoftech.com/coffee-supplychain/user.php
 
 **For Admin Panel:**
 
-- Open http://<URL>/coffee-supplychain-ui/admin.php
+- Open http://blockchain.imperialsoftech.com/coffee-supplychain/admin.php
 
-**Please note:
+**Please note:**
 
 Admin Panel can be only accessed address that deployed the contracts
 
@@ -253,6 +253,13 @@ You can also find out the name, address and contact information of user who upda
 ##### References:
 
 Journey of Coffee - Blockchain Supply Chain - Provenance to Consumption: https://www.youtube.com/watch?v=YOr9A_TygBk
+
+---
+##### Video Links:
+
+Introduction of Coffee Supply Chain : https://www.youtube.com/watch?v=t_MA40AZFVA&t=19s
+
+Walk Through of Coffee Supply Chain Demo : https://www.youtube.com/watch?v=ksK9iv13_W4&t=54s
 
 ---
 ##### Todo:
