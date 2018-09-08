@@ -4,6 +4,7 @@ import "./SupplyChainStorageOwnable.sol";
 
 contract SupplyChainStorage is SupplyChainStorageOwnable {
     
+    address public lastAccess;
     constructor() public {
         authorizedCaller[msg.sender] = 1;
         emit AuthorizedCaller(msg.sender);
@@ -12,20 +13,11 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
     /* Events */
     event AuthorizedCaller(address caller);
     event DeAuthorizedCaller(address caller);
-
-    event PerformCultivation(address indexed user, address indexed batchNo);
-    event DoneInspection(address indexed user, address indexed batchNo);
-    event DoneHarvesting(address indexed user, address indexed batchNo);
-    event DoneExporting(address indexed user, address indexed batchNo);
-    event DoneImporting(address indexed user, address indexed batchNo);
-    event DoneProcessing(address indexed user, address indexed batchNo);
     
-
-    event UserUpdate(address indexed user, string name, string contactNo, string role, bool isActive, string profileHash);
-    event UserRoleUpdate(address indexed user, string role); 
     /* Modifiers */
     
     modifier onlyAuthCaller(){
+        lastAccess = msg.sender;
         require(authorizedCaller[msg.sender] == 1);
         _;
     }
@@ -172,9 +164,6 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
         userDetails[_userAddress] = userDetail;
         userRole[_userAddress] = _role;
         
-        emit UserUpdate(_userAddress,_name,_contactNo,_role,_isActive,_profileHash);
-        emit UserRoleUpdate(_userAddress,_role);
-
         return true;
     }  
     
@@ -226,7 +215,6 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
         
         nextAction[batchNo] = 'FARM_INSPECTION';   
         
-        emit PerformCultivation(msg.sender, batchNo);
         
         return batchNo;
     }
@@ -244,8 +232,6 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
         
         nextAction[batchNo] = 'HARVESTER'; 
         
-        emit DoneInspection(msg.sender, batchNo);
-
         return true;
     }
     
@@ -271,8 +257,6 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
         
         nextAction[batchNo] = 'EXPORTER'; 
         
-        emit DoneHarvesting(msg.sender, batchNo);
-
         return true;
     }
     
@@ -306,8 +290,6 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
         
         nextAction[batchNo] = 'IMPORTER'; 
         
-        emit DoneExporting(msg.sender, batchNo);
-
         return true;
     }
     
@@ -359,8 +341,6 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
         
         nextAction[batchNo] = 'PROCESSOR'; 
         
-        emit DoneImporting(msg.sender, batchNo);
-
         return true;
     }
     
@@ -412,8 +392,6 @@ contract SupplyChainStorage is SupplyChainStorageOwnable {
         
         nextAction[batchNo] = 'DONE'; 
         
-        emit DoneProcessing(msg.sender, batchNo);
-
         return true;
     }
     

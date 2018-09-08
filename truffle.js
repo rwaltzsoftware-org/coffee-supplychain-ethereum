@@ -10,22 +10,12 @@ module.exports =
 	   		network_id: "*" // Match any network id
 		},
     	rinkeby: {
-    		host: "localhost",
-	   		port: 8545,
-		    provider: function() {
-		      var mnemonic = "snap call clerk burger .......................";	
+    	    provider: function() {
+		      var mnemonic = "steel neither fatigue ...";//put ETH wallet 12 mnemonic code	
 		      return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/8U0AE4DUGSh8lVO3zmma");
 		    },
-		    network_id: '4',		 
-		    gas: 6054449,
-		    gasPrice: 1000000000
+		    network_id: '4',
+		    from: '0xab0874cb61d.....',/*ETH wallet 12 mnemonic code wallet address*/
 		}  
-    },
-    mocha: {
-	    reporter: 'eth-gas-reporter',
-	    reporterOptions : {
-	      currency: 'CHF',
-	      gasPrice: 21
-	    }
-	}
+    }
 };

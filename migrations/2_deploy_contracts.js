@@ -5,26 +5,17 @@ var SupplyChainUser = artifacts.require("./SupplyChainUser");
 
 module.exports = function(deployer){
 	deployer.deploy(SupplyChainStorage)
-	.then(()=>
-	{
-		return deployer.deploy(CoffeeSupplyChain,SupplyChainStorage.address);
-			   	
-	}).then(()=>
-    {
-   		return deployer.deploy(SupplyChainUser,SupplyChainStorage.address)
-	   
-    }).then(()=>
-    {
+	.then(()=>{
    		return SupplyChainStorage.deployed();
-    }).then(function(instance)
-	{
-		instance.authorizeCaller(CoffeeSupplyChain.address); 
+    }).then(async (SupplyChainStorageInstance)=>{
+		await Promise.all([deployer.deploy(CoffeeSupplyChain,SupplyChainStorage.address),
+			   			deployer.deploy(SupplyChainUser,SupplyChainStorage.address)]);
+	   
+	    return SupplyChainStorageInstance;
+    }).then(async function(instance){
+		await instance.authorizeCaller(CoffeeSupplyChain.address); 
+		await instance.authorizeCaller(SupplyChainUser.address);
 		return instance;
-
-	}).then(function(instance)
-	{
-		// return instance.authorizeCaller(SupplyChainUser.address); 
-		instance.authorizeCaller(SupplyChainUser.address); /* Fix for Saving artifact issue on testnet  */
 	})
 	.catch(function(error)
 	{

@@ -82,14 +82,19 @@ module.exports =
 {
     networks: 
     {
-	    rinkeby: {
-		    provider: function() {
-		      var mnemonic = 'steel neither flight ...'; //put ETH wallet 12 mnemonic code	
-		      return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/<API_KEY_HERE>"); // 
+	    development: 
+		{
+	   		host: "localhost",
+	   		port: 8545,
+	   		network_id: "*" // Match any network id
+		},
+    	rinkeby: {
+    	    provider: function() {
+		      var mnemonic = "steel neither fatigue ...";//put ETH wallet 12 mnemonic code	
+		      return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/8U0AE4DUGSh8lVO3zmma");
 		    },
 		    network_id: '4',
-		    gas: 6054449,
-		    gasPrice: 1000000000
+		    from: '0xab0874cb61d.....',/*ETH wallet 12 mnemonic code wallet address*/
 		}  
     }
 };
@@ -98,10 +103,47 @@ module.exports =
 Go to your project folder in terminal then execute :
 
 ```
+rm -rf build/
 truffle compile 
-truffle migrate --network rinkeby
+truffle migrate --network rinkeby reset
 ```
+**Please note:**
+1. After successfully deployment you will get response in bash terminal like below
+```
+Running migration: 1_initial_migration.js
+  Deploying Migrations...
+  ... 0x8be4cb8e9c1be61bb83f2661bb8e8a4fefc31433b68137f88a7088a0bb0cccda
+  Migrations: 0xd0fc5980df528878573d97e91a11b4196b060174
+Saving successful migration to network...
+  ... 0x68483eb11712987b190469033e3b12e04bbe960ffbdbfd508eb7618f91ca7dd6
+Saving artifacts...
+Running migration: 2_deploy_contracts.js
+  Deploying SupplyChainStorage...
+  ... 0x42bd453f05e530d312c6140a848aa111d08e2edb8ec96bd380e78d1fd0ebc444
+  SupplyChainStorage: 0xe544a8f280e4cb111589f935c483cafb1c6044d0
+  Deploying SupplyChainUser...
+  Deploying CoffeeSupplyChain...
+  ... 0x928fc9e0a4a0c82c0699c8e76247e15af4da9ba7c855735f5db9c8a9d9368575
+  ... 0x7d47e86f465584e34db27845d7b8ea6f161ea52566fd92426bdff7e1eb1f6789
+  SupplyChainUser: 0x03f72d93e07428dbfbdff8f54676c19dd4421e2b
+  CoffeeSupplyChain: 0x668167b434907e2e212cb7cb7d496159c90b41a4
+  ... 0x692205fd39eb4b96184410d2db4b71535ba5813dee16d96d8345de509b811745
+  ... 0xd66046eac97c2bedaef7dc63bd88b4a42eec15dcd4d9c4042db7af332c0fda1c
+Saving successful migration to network...
+  ... 0x1e8684bad65ef2b1b64020eff109984a62099083828c6267970a586096cfa03f
+Saving artifacts...
 
+```
+- From above responce copy address of SupplyChainStorage, SupplyChainUser, CoffeeSupplyChain
+- This 3 address we need to paste in [coffee-supplychain-ui/js/app/app.js] file
+like below
+```
+    var globIcoAddress = {
+		'CoffeeMain': "0x668167b434907e2e212cb7cb7d496159c90b41a4",
+		'CoffeeUser': "0x03f72d93e07428dbfbdff8f54676c19dd4421e2b",
+		'Storage': "0xe544a8f280e4cb111589f935c483cafb1c6044d0"
+	};
+```
 ---
 **Setting up UI:**
 
@@ -110,11 +152,11 @@ truffle migrate --network rinkeby
 git clone https://github.com/imperialsoftech/coffee-supplychain-ui`
 cd coffee-supplychain-ui/
 ```
-**For User Panel:**
+**For Our Online User Panel Demo:**
 
 - Open http://blockchain.imperialsoftech.com/coffee-supplychain/user.php
 
-**For Admin Panel:**
+**For Our Online Admin Panel Demo:**
 
 - Open http://blockchain.imperialsoftech.com/coffee-supplychain/admin.php
 
