@@ -70,7 +70,7 @@ The coffee supply chain is the sequence of activities and process  to bring raw 
 **Setting up Ethereum Smart Contract:**
 
 ```
-git clone https://github.com/imperialsoftech/coffee-supplychain-ethereum`
+git clone https://github.com/imperialsoftech/coffee-supplychain-ethereum
 cd coffee-supplychain-ethereum/
 ```
 
@@ -149,7 +149,7 @@ like below
 
 - Navigate to Apache Document Root in terminal
 ```
-git clone https://github.com/imperialsoftech/coffee-supplychain-ui`
+git clone https://github.com/imperialsoftech/coffee-supplychain-ui
 cd coffee-supplychain-ui/
 ```
 **For Our Online User Panel Demo:**
