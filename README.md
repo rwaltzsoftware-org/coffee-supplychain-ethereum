@@ -105,6 +105,7 @@ Go to your project folder in terminal then execute :
 ```
 rm -rf build/
 truffle compile 
+npm install truffle-hdwallet-provider
 truffle migrate --network rinkeby reset
 ```
 **Please note:**
