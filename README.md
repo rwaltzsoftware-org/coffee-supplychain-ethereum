@@ -70,7 +70,7 @@ The coffee supply chain is the sequence of activities and process  to bring raw 
 **Setting up Ethereum Smart Contract:**
 
 ```
-git clone https://github.com/imperialsoftech/coffee-supplychain-ethereum
+git clone https://github.com/rwaltzsoftware-org/coffee-supplychain-ethereum
 cd coffee-supplychain-ethereum/
 ```
 
@@ -150,16 +150,16 @@ like below
 
 - Navigate to Apache Document Root in terminal
 ```
-git clone https://github.com/imperialsoftech/coffee-supplychain-ui
+git clone https://github.com/rwaltzsoftware-org/coffee-supplychain-ui
 cd coffee-supplychain-ui/
 ```
 **For Our Online User Panel Demo:**
 
-- Open http://blockchain.imperialsoftech.com/coffee-supplychain/user.php
+- Open http://coffee-supplychain.rwaltzsoftware.com/user.php
 
 **For Our Online Admin Panel Demo:**
 
-- Open http://blockchain.imperialsoftech.com/coffee-supplychain/admin.php
+- Open http://coffee-supplychain.rwaltzsoftware.com/admin.php
 
 **Please note:**
 
@@ -178,7 +178,7 @@ Admin Panel can be only accessed address that deployed the contracts
 
 #### Admin Dashboard
 ---
-![](http://blockchain.imperialsoftech.com/coffee-supplychain-screens/admin.png)
+![](screens/admin.png)
 
 ##### Admin Dashboard Displays
 - Total Number of Users
