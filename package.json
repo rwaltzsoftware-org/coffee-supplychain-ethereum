@@ -21,7 +21,7 @@
   "homepage": "https://gitlab.com/vikas_imperialsoftech/coffee-supplychain-contract#README",
   "dependencies": {
     "chai": "^4.1.2",
-    "eth-gas-reporter": "^0.1.7",
+    "eth-gas-reporter": "^0.2.25",
     "ethereumjs-abi": "^0.6.5",
     "growl": "^1.10.5",
     "truffle-hdwallet-provider": "0.0.5"
